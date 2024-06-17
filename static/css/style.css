@@ -1,0 +1,35 @@
+/* Estilos para o elemento h1 */
+h1 {
+    font-style: italic; /* Estilo de fonte itálico */
+    margin-top: 20px; /* Margem superior de 20px */
+    text-align: center; /* Centralizar o texto */
+}
+
+/* Estilizando a imagem */
+img {
+    max-width: 100%; /* Imagem com largura máxima de 100% do container */
+    height: auto; /* Altura automática proporcional */
+    display: block; /* Faz a imagem comportar-se como um bloco */
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+    margin-top: 20px; /* Margem superior de 20px */
+}
+.bg-body-tertiary {
+background-color: #f0f0f0; /* Cor de fundo desejada */
+}
+button, a {
+    padding: 10px 20px; /* Espaçamento interno (ajuste conforme necessário) */
+    font-size: 16px; /* Tamanho da fonte (ajuste conforme necessário) */
+    transition: transform 0.3s ease; /* Transição suave para o efeito de crescimento */
+}
+
+/* Quando o mouse passar por cima */
+button:hover, a:hover {
+    transform: scale(1.1); /* Aumenta o tamanho em 10% */
+}
+
+h1.titulo {
+    font-size: 48px; /* Tamanho da fonte */
+    color: red;
+    font-weight: bold; /* Negrito */
+    margin-top: 20px; /* Margem superior de 20px */
+}
