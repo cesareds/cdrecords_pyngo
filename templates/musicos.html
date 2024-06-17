@@ -13,10 +13,9 @@
     <div class="container">
         <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-            <a class="navbar-brand" href="home">
-                <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                Home
-            </a>
+                <a class="navbar-brand" href="home">
+                    <span><img src="{{ url_for('static', filename='images/logos.png') }}" alt="Logo" width="60" class="d-inline-block align-text-top"></span>
+                </a>
             </div>
         </nav>
 
@@ -61,29 +60,28 @@
             <h3>Informações dos Músicos</h3>
             <div class="row">
                 {% for musico in musicos %}
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card mb-3">
-                            <img src="{{musico['url']}}" class="card-img-top" alt="...">
+                            <img src="{{musico['url']}}" class="card-img-top" alt="img">
                             <div class="card-body">
                                 <h5 class="card-title">{{musico['nome']}}</h5>
                                 <p class="card-text">{{musico['descricao']}}</p>
                             </div>
-                            <div class="list-container">
-                                <div class="list-column">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Gênero:</strong> {{ musico['genero'] }}</li>
-                                        <li class="list-group-item"><strong>CEP:</strong> {{ musico['cep'] }}</li>
-                                        <li class="list-group-item"><strong>Rua:</strong> {{ musico['rua'] }}</li>
-                                    </ul>
-                                </div>
-                                <div class="list-column">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Cidade:</strong> {{ musico['cidade'] }}</li>
-                                        <li class="list-group-item"><strong>Estado:</strong> {{ musico['estado'] }}</li>
-                                        <li class="list-group-item"><strong>Telefone:</strong> {{ musico['telefone'] }}</li>
-                                    </ul>
-                                </div>
-                            </div>                            
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><strong>Genero:</strong> {{ musico['genero'] }}</span>
+                                    <span><strong>Telefone:</strong> {{ musico['telefone'] }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><strong>CEP:</strong> {{ musico['cep'] }}</span>
+                                    <span><strong>Estado:</strong> {{ musico['estado'] }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span><strong>Rua:</strong> {{ musico['rua'] }}</span>
+                                    <span><strong>Cidade:</strong> {{ musico['cidade'] }}</span>
+                                </li>
+                            </ul>
+
                         </div>
                     </div>
                 {% endfor %}
