@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">
+                <a class="navbar-brand" href="home">
+                    <span><img src="{{ url_for('static', filename='images/logos.png') }}" alt="Logo" width="50"
+                            class="d-inline-block align-text-top"></span>
+                </a>
+            </div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicos">Músicos</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="bandas">Bandas</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">Músicas</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="discos">Discos</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+            </div>
+        </div>
+        <!-- Page content wrapper-->
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="https://www.linkedin.com/feed/?trk=homepage-basic_sign-in-submit">
+                                    <i class="fa fa-linkedin-square" style="font-size:48px"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/cesareds/cdrecords_pyngo">
+                                    <i class="fa fa-github" style="font-size:48px"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#!">Action</a>
+                                    <a class="dropdown-item" href="#!">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#!">Something else here</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page content-->
+            <h1 class="mt-4">Bem-vindo à CD Records!</h1>
+            <div class="text-center mt-4">
+                <p>
+                    Na CD Records, valorizamos a música e os músicos que a tornam possível. Nossa plataforma foi
+                    projetada para
+                    simplificar
+                    o processo de gestão de artistas e suas informações. Aqui, você pode adicionar e gerenciar dados de
+                    músicos de
+                    maneira
+                    rápida e eficiente. Se você faz parte de uma gravadora, ou é um músico independente, nossa
+                    ferramenta foi feita
+                    para
+                    você.
+                </p>
+                <h2>Comece Agora!</h2>
+                <p style="margin-top: 2em;">Para começar, basta preencher o formulário abaixo com as informações do
+                    músico. Depois de adicionar os dados,
+                    você
+                    poderá gerenciá-los facilmente, mantendo tudo organizado e acessível. Nossa plataforma é segura e
+                    projetada para
+                    atender
+                    todas as suas necessidades de gerenciamento de artistas.</p>
+            </div>
+
+        </div>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+
+</html>

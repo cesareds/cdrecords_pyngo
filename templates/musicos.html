@@ -8,85 +8,139 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Link para o seu arquivo CSS personalizado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="border-end bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading border-bottom bg-light">
                 <a class="navbar-brand" href="home">
-                    <span><img src="{{ url_for('static', filename='images/logos.png') }}" alt="Logo" width="60" class="d-inline-block align-text-top"></span>
+                    <span><img src="{{ url_for('static', filename='images/logos.png') }}" alt="Logo" width="50"
+                            class="d-inline-block align-text-top"></span>
                 </a>
             </div>
-        </nav>
-
-        <h1 class="titulo">Músicos</h1>
-
-        <div class="row mb-5 mt-3">
-            <form action="/submit_musico" method="post">
-                <div class="input-group mb-3">
-                    <input name="nome" type="text" name="nome" class="form-control" placeholder="Nome Completo" aria-label="nome_completo" aria-describedby="basic-addon1">
-                </div>
-
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Descrição</span>
-                    <textarea name="descricao" class="form-control" aria-label="With textarea"></textarea>
-                </div>
-                
-                <div class="input-group mb-3">
-                    <input name="genero" type="text" class="form-control" placeholder="Gênero" aria-label="genero">
-                    <input name="cep" type="text" class="form-control" placeholder="CEP" aria-label="cep">
-                </div>
-
-                <div class="input-group mb-3">
-                    <input name="rua" type="text" class="form-control" placeholder="Rua" aria-label="rua">
-                    <input name="cidade" type="text" class="form-control" placeholder="Cidade" aria-label="cidade">
-                </div>
-
-                <div class="input-group mb-3">
-                    <input name="estado" type="text" class="form-control" placeholder="Estado" aria-label="estado">
-                    <input name="telefone" type="text" class="form-control" placeholder="Telefone" aria-label="telefone">
-                </div>
-
-                <div class="input-group mb-3">
-                    <input name="url" type="text" class="form-control" placeholder="URL da foto" aria-label="url" aria-describedby="photo">
-                </div>
-
-                <button type="button mb-5 submit_musico" class="btn btn-primary btn-lg">Adicionar</button>
-            </form>
-        </div>
-
-        <h2>Dados Salvos</h2>
-        <div class="container mt-5">
-            <h3>Informações dos Músicos</h3>
-            <div class="row">
-                {% for musico in musicos %}
-                    <div class="col-md-4">
-                        <div class="card mb-3">
-                            <img src="{{musico['url']}}" class="card-img-top" alt="img">
-                            <div class="card-body">
-                                <h5 class="card-title">{{musico['nome']}}</h5>
-                                <p class="card-text">{{musico['descricao']}}</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <span><strong>Genero:</strong> {{ musico['genero'] }}</span>
-                                    <span><strong>Telefone:</strong> {{ musico['telefone'] }}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <span><strong>CEP:</strong> {{ musico['cep'] }}</span>
-                                    <span><strong>Estado:</strong> {{ musico['estado'] }}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <span><strong>Rua:</strong> {{ musico['rua'] }}</span>
-                                    <span><strong>Cidade:</strong> {{ musico['cidade'] }}</span>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-                {% endfor %}
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicos">Músicos</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="bandas">Bandas</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">Músicas</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="discos">Discos</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
             </div>
         </div>
+        <div id="page-content-wrapper">
+            <!-- Top navigation-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.linkedin.com/feed/?trk=homepage-basic_sign-in-submit">
+                                    <i class="fa fa-linkedin-square" style="font-size:48px"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/cesareds/cdrecords_pyngo">
+                                    <i class="fa fa-github" style="font-size:48px"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#!">Action</a>
+                                    <a class="dropdown-item" href="#!">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#!">Something else here</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <!-- MUDAR DENTRO DESSE DIV-->
+        
+                <h1 class="titulo">Músicos</h1>
+        
+                <div class="row mb-5 mt-3">
+                    <form action="/submit_musico" method="post">
+                        <div class="input-group mb-3">
+                            <input name="nome" type="text" class="form-control" placeholder="Nome Completo" aria-label="nome_completo"
+                                aria-describedby="basic-addon1">
+                        </div>
+                
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Descrição</span>
+                            <textarea name="descricao" class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                
+                        <div class="input-group mb-3">
+                            <input name="genero" type="text" class="form-control" placeholder="Gênero" aria-label="genero">
+                            <input name="cep" type="text" class="form-control" placeholder="CEP" aria-label="cep">
+                        </div>
+                
+                        <div class="input-group mb-3">
+                            <input name="rua" type="text" class="form-control" placeholder="Rua" aria-label="rua">
+                            <input name="cidade" type="text" class="form-control" placeholder="Cidade" aria-label="cidade">
+                        </div>
+                
+                        <div class="input-group mb-3">
+                            <input name="estado" type="text" class="form-control" placeholder="Estado" aria-label="estado">
+                            <input name="telefone" type="text" class="form-control" placeholder="Telefone" aria-label="telefone">
+                        </div>
+                
+                        <div class="input-group mb-3">
+                            <input name="url" type="text" class="form-control" placeholder="URL da foto" aria-label="url"
+                                aria-describedby="photo">
+                        </div>
+                
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Adicionar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <h2>Dados Salvos</h2>
+                </div>
+                <div class="container mt-5">
+                    <h3>Informações dos Músicos</h3>
+                    <div class="row">
+                        {% for musico in musicos %}
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <img src="{{musico['url']}}" class="card-img-top" alt="img">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{musico['nome']}}</h5>
+                                        <p class="card-text">{{musico['descricao']}}</p>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span><strong>Genero:</strong> {{ musico['genero'] }}</span>
+                                            <span><strong>Telefone:</strong> {{ musico['telefone'] }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span><strong>CEP:</strong> {{ musico['cep'] }}</span>
+                                            <span><strong>Estado:</strong> {{ musico['estado'] }}</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <span><strong>Rua:</strong> {{ musico['rua'] }}</span>
+                                            <span><strong>Cidade:</strong> {{ musico['cidade'] }}</span>
+                                        </li>
+                                    </ul>
+        
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
