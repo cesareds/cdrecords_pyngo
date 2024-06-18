@@ -23,7 +23,7 @@ app = Flask(__name__, static_folder='static')
 
 @app.route('/home')
 def index():
-    return render_template('home.html')
+    return render_template('index.html')
 
 @app.route('/musicos')
 def show_musicos():
@@ -122,7 +122,6 @@ def submit_disco():
     except Exception as e:
         print(f"Erro ao salvar disco: {e}")
         return f"Erro ao salvar disco: {e}", 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)
