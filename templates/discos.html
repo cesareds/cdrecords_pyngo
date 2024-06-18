@@ -29,11 +29,39 @@
 
                 <div class="input-group mb-3">
                     <input name="artista" type="text" class="form-control" placeholder="Artista" aria-label="artista">
+                </div>
+
+                <div class="input-group mb-3">
                     <input name="genero" type="text" class="form-control" placeholder="Gênero" aria-label="genero">
                 </div>
 
                 <div class="input-group mb-3">
-                    <input name="ano" type="text" class="form-control" placeholder="Ano de Lançamento" aria-label="ano">
+                    <input name="dataLancamento" type="date" class="form-control" placeholder="Data de Lançamento" aria-label="dataLancamento">
+                </div>
+
+                <div class="input-group mb-3">
+                    <input name="preco" type="number" class="form-control" placeholder="Preço" aria-label="preco">
+                </div>
+
+                <div class="input-group mb-3">
+                    <input name="platinas" type="number" class="form-control" placeholder="Platinas" aria-label="platinas">
+                </div>
+
+                <div class="input-group mb-3">
+                    <select name="formato" class="form-select" aria-label="formato">
+                        <option selected>Escolha o Formato</option>
+                        <option value="CD">CD</option>
+                        <option value="Vinil">Vinil</option>
+                        <option value="Cassette">Cassette</option>
+                        <option value="Digital">Digital</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input name="descricao" type="text" class="form-control" placeholder="Descrição" aria-label="descricao">
+                </div>
+
+                <div class="input-group mb-3">
                     <input name="url" type="text" class="form-control" placeholder="URL da capa" aria-label="url">
                 </div>
 
@@ -48,14 +76,18 @@
                 {% for disco in discos %}
                     <div class="col-md-4">
                         <div class="card mb-3">
-                            <img src="{{disco['url']}}" class="card-img-top" alt="img">
+                            <img src="{{ disco['url'] }}" class="card-img-top" alt="img">
                             <div class="card-body">
-                                <h5 class="card-title">{{disco['titulo']}}</h5>
-                                <p class="card-text">{{disco['artista']}}</p>
+                                <h5 class="card-title">{{ disco['titulo'] }}</h5>
+                                <p class="card-text">{{ disco['descricao'] }}</p>
                             </div>
                             <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Artista:</strong> {{ disco['artista'] }}</li>
                                 <li class="list-group-item"><strong>Gênero:</strong> {{ disco['genero'] }}</li>
-                                <li class="list-group-item"><strong>Ano:</strong> {{ disco['ano'] }}</li>
+                                <li class="list-group-item"><strong>Data de Lançamento:</strong> {{ disco['dataLancamento'] }}</li>
+                                <li class="list-group-item"><strong>Preço:</strong> {{ disco['preco'] }}</li>
+                                <li class="list-group-item"><strong>Platinas:</strong> {{ disco['platinas'] }}</li>
+                                <li class="list-group-item"><strong>Formato:</strong> {{ disco['formato'] }}</li>
                             </ul>
                         </div>
                     </div>

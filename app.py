@@ -15,6 +15,7 @@ try:
     collection_musico = db['Musico']
     collection_banda = db['Banda']
     collection_disco = db['Disco']
+    collection_musica = db['Musica']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -111,13 +112,21 @@ def submit_disco():
     titulo = request.form['titulo']
     artista = request.form['artista']
     genero = request.form['genero']
-    ano = request.form['ano']
+    dataLancamento = request.form['dataLancamento']
+    preco = request.form['preco']
+    platinas = request.form['platinas']
+    formato = request.form['formato']
+    descricao = request.form['descricao']
     url = request.form['url']
     query = {
         'titulo': titulo,
         'artista': artista,
         'genero': genero,
-        'ano': ano,
+        'dataLancamento': dataLancamento,
+        'preco': preco,
+        'platinas': platinas,
+        'formato': formato,
+        'descricao': descricao,
         'url': url
     }
     try:
@@ -127,6 +136,39 @@ def submit_disco():
     except Exception as e:
         print(f"Erro ao salvar disco: {e}")
         return f"Erro ao salvar disco: {e}", 500
+
+@app.route('/musicas')
+def show_musicas():
+    try:
+        musicas = list(collection_musica.find())
+        return render_template('musicas.html', musicas=musicas)
+    except Exception as e:
+        return f"Erro ao recuperar músicas: {e}", 500
+
+@app.route('/submit_musica', methods=['POST'])
+def submit_musica():
+    print(request.form)
+    titulo = request.form['titulo']
+    faixa = request.form['faixa']
+    autores = request.form['autores']
+    duracao = request.form['duracao']
+    letra = request.form['letra']
+    query = {
+        'titulo': titulo,
+        'faixa': faixa,
+        'autores': autores,
+        'duracao': duracao,
+        'letra': letra
+    }
+    try:
+        print("Salvando...")
+        collection_musica.insert_one(query)
+        return redirect(url_for('show_musicas'))
+    except Exception as e:
+        print(f"Erro ao salvar música: {e}")
+        return f"Erro ao salvar música: {e}", 500
+
+
 
 
 if __name__ == '__main__':
