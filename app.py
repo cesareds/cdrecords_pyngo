@@ -16,6 +16,7 @@ try:
     collection_banda = db['Banda']
     collection_disco = db['Disco']
     collection_musica = db['Musica']
+    collection_instrumento = db['Instrumento']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -167,6 +168,27 @@ def submit_musica():
     except Exception as e:
         print(f"Erro ao salvar música: {e}")
         return f"Erro ao salvar música: {e}", 500
+
+
+@app.route('/instrumentos')
+def show_instrumentos():
+    try:
+        instrumentos = list(collection_instrumento.find())
+        return render_template('instrumentos.html', instrumentos=instrumentos)
+    except Exception as e:
+        return f"Erro ao recuperar instrumentos: {e}", 500
+    
+@app.route('/submit_instrumento', methods=['POST'])
+def submit_instrumento():
+    instrumento = {
+        'marca': request.form['marca'],
+        'tipo': request.form['tipo'],
+        'nome': request.form['nome'],
+        'url': request.form['url']
+    }
+    collection_instrumento.append(instrumento)
+    return redirect(url_for('show_instrumentos'))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True) #se a porta 8080 estiver ocupada, botar outra
