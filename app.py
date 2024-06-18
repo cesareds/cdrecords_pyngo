@@ -1,16 +1,22 @@
 from flask import Flask, request, render_template, redirect, url_for
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
+from pymongo import MongoClient
 import configparser
+import ssl
 
 config = configparser.ConfigParser()
 config.read('database.properties')
 
 uri = config.get('DATABASE', 'URI')
 
-client = MongoClient(server_api=ServerApi('1')) 
-db = client['CDRecords']
-collection = db['Musico']
+try:
+    # Configuração da conexão com desativação da verificação de certificado SSL
+    client = MongoClient(uri, tls=True, tlsAllowInvalidCertificates=True)
+    db = client['CDRecords']
+    collection_musico = db['Musico']
+    collection_banda = db['Banda']
+    print("connected with MongoDB Atlas")
+except Exception as e:
+    print(f"Erro ao conectar com MongoDB Atlas: {e}")
 
 app = Flask(__name__, static_folder='static')
 
@@ -20,9 +26,11 @@ def index():
 
 @app.route('/musicos')
 def show_musicos():
-    collection = db['Musico']
-    musicos = list(collection.find())
-    return render_template('musicos.html', musicos=musicos)
+    try:
+        musicos = list(collection_musico.find())
+        return render_template('musicos.html', musicos=musicos)
+    except Exception as e:
+        return f"Erro ao recuperar músicos: {e}", 500
 
 @app.route('/submit_musico', methods=['POST'])
 def submit_musico():
@@ -37,23 +45,50 @@ def submit_musico():
     cidade = request.form['cidade']
     url = request.form['url']
     query = {
-        'nome': nome, 
-        'descricao': descricao, 
-        'genero': genero, 
-        'cep': cep, 
-        'rua': rua, 
-        'estado': estado, 
-        'telefone': telefone, 
-        'cidade': cidade, 
+        'nome': nome,
+        'descricao': descricao,
+        'genero': genero,
+        'cep': cep,
+        'rua': rua,
+        'estado': estado,
+        'telefone': telefone,
+        'cidade': cidade,
         'url': url
-        }
+    }
     try:
         print("Salvando...")
-        collection.insert_one(query)
+        collection_musico.insert_one(query)
+        return redirect(url_for('show_musicos'))
     except Exception as e:
-        print("Error f{e}")
-        
-    return redirect(url_for('show_musicos'))
+        print(f"Erro ao salvar músico: {e}")
+        return f"Erro ao salvar músico: {e}", 500
+
+@app.route('/bandas')
+def show_bandas():
+    try:
+        bandas = list(collection_banda.find())
+        return render_template('bandas.html', bandas=bandas)
+    except Exception as e:
+        return f"Erro ao recuperar bandas: {e}", 500
+
+@app.route('/submit_banda', methods=['POST'])
+def submit_banda():
+    print(request.form)
+    nome = request.form['nome']
+    genero = request.form['genero']
+    url = request.form['url']
+    query = {
+        'nome': nome,
+        'genero': genero,
+        'url': url
+    }
+    try:
+        print("Salvando...")
+        collection_banda.insert_one(query)
+        return redirect(url_for('show_bandas'))
+    except Exception as e:
+        print(f"Erro ao salvar banda: {e}")
+        return f"Erro ao salvar banda: {e}", 500
 
 if __name__ == '__main__':
     app.run(debug=True)
