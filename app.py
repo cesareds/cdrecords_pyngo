@@ -76,16 +76,21 @@ def show_bandas():
 def submit_banda():
     print(request.form)
     nome = request.form['nome']
+    descricao = request.form['descricao']
     genero = request.form['genero']
+    dataDeFormacao = request.form['dataDeFormacao']
     url = request.form['url']
     query = {
         'nome': nome,
+        'descricao': descricao,
         'genero': genero,
+        'dataDeFormacao': dataDeFormacao,
         'url': url
     }
     try:
         print("Salvando...")
         collection_banda.insert_one(query)
+        print("Banda salva com sucesso.")
         return redirect(url_for('show_bandas'))
     except Exception as e:
         print(f"Erro ao salvar banda: {e}")
