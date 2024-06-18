@@ -14,6 +14,7 @@ try:
     db = client['CDRecords']
     collection_musico = db['Musico']
     collection_banda = db['Banda']
+    collection_disco = db['Disco']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -89,6 +90,39 @@ def submit_banda():
     except Exception as e:
         print(f"Erro ao salvar banda: {e}")
         return f"Erro ao salvar banda: {e}", 500
+
+
+@app.route('/discos')
+def show_discos():
+    try:
+        discos = list(collection_disco.find())
+        return render_template('discos.html', discos=discos)
+    except Exception as e:
+        return f"Erro ao recuperar discos: {e}", 500
+
+@app.route('/submit_disco', methods=['POST'])
+def submit_disco():
+    print(request.form)
+    titulo = request.form['titulo']
+    artista = request.form['artista']
+    genero = request.form['genero']
+    ano = request.form['ano']
+    url = request.form['url']
+    query = {
+        'titulo': titulo,
+        'artista': artista,
+        'genero': genero,
+        'ano': ano,
+        'url': url
+    }
+    try:
+        print("Salvando...")
+        collection_disco.insert_one(query)
+        return redirect(url_for('show_discos'))
+    except Exception as e:
+        print(f"Erro ao salvar disco: {e}")
+        return f"Erro ao salvar disco: {e}", 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)
