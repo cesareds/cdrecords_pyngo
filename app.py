@@ -20,6 +20,7 @@ try:
     collection_instrumento = db['Instrumento']
     collection_criador = db['Criador']
     collection_produtor = db['Produtor']
+    collection_incluir = db['Incluir']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -36,7 +37,7 @@ def mongo_to_json(doc):
         return {key: mongo_to_json(value) for key, value in doc.items()}  # Recursivamente converte dicionário de documentos
     else:
         return doc  # Retorna valores não documentais inalterados
-
+@app.route('/')
 @app.route('/home')
 def index():
     return render_template('index.html')
@@ -117,6 +118,53 @@ def submit_banda():
 
 @app.route('/discos')
 def show_discos():
+##################
+    try:
+        # Obter valores únicos de discoId usando distinct
+        disco_ids = collection_disco.distinct('_id')
+
+        # Lista para armazenar os dados finais
+        final_data_list = []
+
+        # Iterar sobre cada discoId encontrado
+        for d in disco_ids:
+            # Encontrar músicas do discoId atual
+            musicas_do_disco = list(collection_incluir.find({'discoId': ObjectId(d)}))
+
+            # Encontrar detalhes do disco usando o primeiro resultado de anda.find
+            disco = list(collection_disco.find({'_id': ObjectId(d)}))
+
+            # Lista para armazenar detalhes das músicas
+            musicod = []
+
+            # Iterar sobre cada música do disco
+            for musica in musicas_do_disco:
+                # Encontrar detalhes da música usando musico.find
+                musicod.append(list(collection_musica.find({'_id': ObjectId(musica['musicaId'])})))
+
+                # Montar dados finais para o disco atual
+            final_data = {
+                "url":          disco[0]['url'],
+                "disco_title":  disco[0]['titulo'],
+                "disco_desc":   disco[0]['descricao'],
+                # "disco_art":    disco[0]['artista'],
+                "disco_gen":    disco[0]['genero'],
+                "disco_data":   disco[0]['dataLancamento'],
+                "disco_preco":  disco[0]['preco'],
+                "disco_plat":   disco[0]['platinas'],
+                "disco_form":   disco[0]['formato'],
+                "songs": mongo_to_json(musicod)  # Converter músicas para formato JSON serializável
+            }
+            
+
+            # Adicionar dados finais à lista de dados finais
+            final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
+            print(final_data_list)
+        return render_template('discos.html', data=final_data_list)
+    except Exception as e:
+        return f"Erro ao recuperar instrumentos: {e}", 500
+############
+
     try:
         discos = list(collection_disco.find())
         musicas = list(collection_musica.find())

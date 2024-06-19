@@ -185,16 +185,36 @@
                                 <div class="card mb-3">
                                     <img src="{{ disco['url'] }}" class="card-img-top" alt="img">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ disco['titulo'] }}</h5>
-                                        <p class="card-text">{{ disco['descricao'] }}</p>
+                                        <h5 class="card-title">{{ disco['disco_title'] }}</h5>
+                                        <p class="card-text">{{ disco['disco_desc'] }}</p>
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item"><strong>Artista:</strong> {{ disco['artista'] }}</li>
-                                        <li class="list-group-item"><strong>Gênero:</strong> {{ disco['genero'] }}</li>
-                                        <li class="list-group-item"><strong>Data de Lançamento:</strong> {{ disco['dataLancamento'] }}</li>
-                                        <li class="list-group-item"><strong>Preço:</strong> {{ disco['preco'] }}</li>
-                                        <li class="list-group-item"><strong>Platinas:</strong> {{ disco['platinas'] }}</li>
-                                        <li class="list-group-item"><strong>Formato:</strong> {{ disco['formato'] }}</li>
+                                        <li class="list-group-item"><strong>Gênero:</strong> {{ disco['disco_gen'] }}</li>
+                                        <li class="list-group-item"><strong>Data de Lançamento:</strong> {{ disco['disco_data'] }}</li>
+                                        <li class="list-group-item"><strong>Preço:</strong> {{ disco['disco_preco'] }}</li>
+                                        <li class="list-group-item"><strong>Platinas:</strong> {{ disco['disco_plat'] }}</li>
+                                        <li class="list-group-item"><strong>Formato:</strong> {{ disco['disco_form'] }}</li>
+                                        <li class="list-group-item">
+                                        <div class="accordion" id="accordionExample">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Musicas
+                                                </button>
+                                                </h2>
+                                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                            {% for song in disco['songs'] %}
+                                                                <li><strong>{{song[0]['faixa']}}</strong> - {{song[0]['titulo']}}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

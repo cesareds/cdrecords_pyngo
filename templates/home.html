@@ -1,0 +1,62 @@
+<!-- LEGACY -->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site</title>
+    <!-- Link para o Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link para o seu arquivo CSS personalizado -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand">Navbar</a>
+              <a class="navbar-brand" href="home">
+                <img src="{{ url_for('static', filename='images/logos.png') }}" alt="Logo" width="40"
+                        class="d-inline-block align-text-top">
+              </a>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+          </nav>
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="musicos">Músicos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="bandas">Bandas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="musicas">Músicas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="discos">Discos</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            </main>
+        </div>
+    </div>
+
+    <!-- Link para o Bootstrap JS, Popper.js e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Link para o seu arquivo JS personalizado -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
