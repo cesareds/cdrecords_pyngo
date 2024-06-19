@@ -122,7 +122,7 @@ def show_discos():
     try:
         # Obter valores únicos de discoId usando distinct
         disco_ids = collection_disco.distinct('_id')
-
+        musicas = list(collection_musica.find())
         # Lista para armazenar os dados finais
         final_data_list = []
 
@@ -159,8 +159,8 @@ def show_discos():
 
             # Adicionar dados finais à lista de dados finais
             final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
-            print(final_data_list)
-        return render_template('discos.html', data=final_data_list)
+            print(musicas)
+        return render_template('discos.html', data=final_data_list, musicas=musicas)
     except Exception as e:
         return f"Erro ao recuperar instrumentos: {e}", 500
 ############
