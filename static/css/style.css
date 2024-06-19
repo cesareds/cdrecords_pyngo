@@ -23,8 +23,10 @@ button, a {
 }
 
 /* Quando o mouse passar por cima */
-button:hover, a:hover {
+button:hover, a:hover, img:hover {
     transform: scale(1.1); /* Aumenta o tamanho em 10% */
+    transition: transform 0.3s ease; /* Transição suave para o efeito de crescimento */
+
 }
 
 h1.titulo {
