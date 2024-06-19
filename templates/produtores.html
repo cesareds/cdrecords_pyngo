@@ -134,26 +134,17 @@
                 <div class="container mt-5">
                     <h3>Informações dos Produtores</h3>
                     <div class="row">
-                        {% for musico in data %}
+                        {% for produtor in produtores %}
                             <div class="col-md-4">
                                 <div class="card mb-3">
-                                    <img src="{{musico['url']}}" class="card-img-top" alt="img">
+                                    <img src="{{produtor['url']}}" class="card-img-top" alt="img">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{musico['nome']}}</h5>
-                                        <p class="card-text">{{musico['descricao']}}</p>
+                                        <h5 class="card-title">{{produtor['nome']}}</h5>
+                                        <p class="card-text">{{produtor['biografia']}}</p>
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <span><strong>Genero:</strong> {{ musico['genero'] }}</span>
-                                            <span><strong>Telefone:</strong> {{ musico['telefone'] }}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between">
-                                            <span><strong>CEP:</strong> {{ musico['cep'] }}</span>
-                                            <span><strong>Estado:</strong> {{ musico['estado'] }}</span>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between">
-                                            <span><strong>Rua:</strong> {{ musico['rua'] }}</span>
-                                            <span><strong>Cidade:</strong> {{ musico['cidade'] }}</span>
+                                            <span><strong>Biografia:</strong> {{ produtor['biografia'] }}</span>
                                         </li>
                                     </ul>
         

@@ -252,7 +252,7 @@ def submit_instrumento():
 def show_produtores():
     try:
         produtores = list(collection_produtor.find())
-        return render_template('produtores.html', data=produtores)
+        return render_template('produtores.html', produtores=produtores)
     except Exception as e:
         return f"Erro ao recuperar produtores: {e}", 500
 @app.route('/submit_produtor', methods=['POST'])
