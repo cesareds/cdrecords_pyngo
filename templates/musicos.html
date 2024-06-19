@@ -26,12 +26,7 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicas">Músicas</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="discos">Discos</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="instrumentos">Instrumentos</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="incluir">Incluir</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="integrar">Integrar</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="lancamento">Lancamento</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="participar">Participar</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="produzir">Produzir</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="tocar">Tocar</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="produtores">Produtores</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
             </div>
@@ -118,6 +113,38 @@
                         </div>
                     </form>
                 </div>
+            </form>
+                    
+            <h3>
+                <p>
+
+                </p>
+                Tocar instrumento musico
+            </h3>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <select name="Musico" class="form-select" aria-label="Musico">
+                            <option selected>Musico</option>
+                            {% for musico in data %}
+                                <option value="{{ musico['nome'] }}">{{ musico['nome'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <select name="Instrumento" class="form-select" aria-label="Instrumento">
+                            <option selected>Instrumento</option>
+                            {% for instrumento in instrumentos %}
+                                <option value="{{ instrumento['nome'] }}">{{ instrumento['nome'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>                        
+        </form>
+
                 <div class="d-flex justify-content-center">
                     <h2>Dados Salvos</h2>
                 </div>

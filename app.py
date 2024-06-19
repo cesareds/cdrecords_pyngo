@@ -45,7 +45,8 @@ def index():
 def show_musicos():
     try:
         musicos = list(collection_musico.find())
-        return render_template('musicos.html', data=musicos)
+        instrumentos = list(collection_instrumento.find())
+        return render_template('musicos.html', data=musicos, instrumentos=instrumentos)
     except Exception as e:
         return f"Erro ao recuperar músicos: {e}", 500
 
