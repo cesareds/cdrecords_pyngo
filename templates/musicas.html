@@ -106,12 +106,42 @@
                         <button type="submit" class="btn btn-primary btn-lg">Adicionar</button>
                     </form>
                 </div>
+            </form>
+                    
+            <h3>
+                <p>
 
+                </p>
+                Participar criador à música
+            </h3>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <select name="Musica" class="form-select" aria-label="Musica">
+                            <option selected>Musica</option>
+                            {% for musica in musicas %}
+                                <option value="{{ musica['titulo'] }}">{{ musica['titulo'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <select name="Criador" class="form-select" aria-label="Criador">
+                            <option selected>Criador</option>
+                            {% for criador in criadores %}
+                                <option value="{{ criador['nome'] }}">{{ criador['nome'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>                        
+        </form>
                 <h2>Músicas Salvas</h2>
                 <div class="container mt-5">
                     <h3>Informações das Músicas</h3>
                     <div class="row">
-                        {% for musica in data %}
+                        {% for musica in musicas %}
                             <div class="col-md-4">
                                 <div class="card mb-3">
                                     <div class="card-body">

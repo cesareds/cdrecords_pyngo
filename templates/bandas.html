@@ -25,7 +25,6 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicas">Músicas</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="discos">Discos</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="instrumentos">Instrumentos</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="incluir">Incluir</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="integrar">Integrar</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="lancamento">Lancamento</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="participar">Participar</a>
@@ -105,8 +104,39 @@
 
                         <button type="submit" class="btn btn-primary btn-lg">Adicionar</button>
                     </form>
-                </div>
 
+                </div>
+            </form>
+                    
+            <h3>
+                <p>
+
+                </p>
+                Integrar Músico à Banda
+            </h3>
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="input-group">
+                        <select name="Disco" class="form-select" aria-label="Disco">
+                            <option selected>Banda</option>
+                            {% for banda in data %}
+                                <option value="{{ banda['nome'] }}">{{ banda['nome'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group">
+                        <select name="Musica" class="form-select" aria-label="Musica">
+                            <option selected>Musico</option>
+                            {% for musico in musicos %}
+                                <option value="{{ musico['nome'] }}">{{ musico['nome'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>                        
+        </form>
                 <h2>Dados Salvos</h2>
                 <div class="container mt-5">
                     <h3>Informações das Bandas</h3>

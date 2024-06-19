@@ -19,6 +19,7 @@ try:
     collection_musica = db['Musica']
     collection_instrumento = db['Instrumento']
     collection_incluir = db['Incluir']
+    collection_criador = db['Criador']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -83,7 +84,8 @@ def submit_musico():
 def show_bandas():
     try:
         bandas = list(collection_banda.find())
-        return render_template('bandas.html', data=bandas)
+        musicos = list(collection_musico.find())
+        return render_template('bandas.html', data=bandas, musicos=musicos)
     except Exception as e:
         return f"Erro ao recuperar bandas: {e}", 500
 
@@ -156,7 +158,8 @@ def submit_disco():
 def show_musicas():
     try:
         musicas = list(collection_musica.find())
-        return render_template('musicas.html', data=musicas)
+        criadores = list(collection_criador.find())
+        return render_template('musicas.html', musicas=musicas, criadores=criadores)
     except Exception as e:
         return f"Erro ao recuperar músicas: {e}", 500
 
