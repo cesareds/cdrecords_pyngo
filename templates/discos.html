@@ -82,75 +82,105 @@
 
                 <div class="row mb-5 mt-3">
                     <form action="/submit_disco" method="post">
-                        <div class="input-group mb-3">
-                            <input name="titulo" type="text" class="form-control" placeholder="Título" aria-label="titulo">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="titulo" type="text" class="form-control" placeholder="Título" aria-label="titulo">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="artista" type="text" class="form-control" placeholder="Artista" aria-label="artista">
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <input name="artista" type="text" class="form-control" placeholder="Artista" aria-label="artista">
+                        
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="genero" type="text" class="form-control" placeholder="Gênero" aria-label="genero">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="dataLancamento" type="date" class="form-control" placeholder="Data de Lançamento" aria-label="dataLancamento">
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <input name="genero" type="text" class="form-control" placeholder="Gênero" aria-label="genero">
+                    
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="preco" type="number" class="form-control" placeholder="Preço" aria-label="preco">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="platinas" type="number" class="form-control" placeholder="Platinas" aria-label="platinas">
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <input name="dataLancamento" type="date" class="form-control" placeholder="Data de Lançamento" aria-label="dataLancamento">
+                    
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <select name="formato" class="form-select" aria-label="formato">
+                                        <option selected>Escolha o Formato</option>
+                                        <option value="CD">CD</option>
+                                        <option value="Vinil">Vinil</option>
+                                        <option value="Cassette">Cassette</option>
+                                        <option value="Digital">Digital</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="descricao" type="text" class="form-control" placeholder="Descrição" aria-label="descricao">
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <input name="preco" type="number" class="form-control" placeholder="Preço" aria-label="preco">
+                    
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input name="url" type="text" class="form-control" placeholder="URL da capa" aria-label="url">
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="input-group mb-3">
-                            <input name="platinas" type="number" class="form-control" placeholder="Platinas" aria-label="platinas">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <select name="formato" class="form-select" aria-label="formato">
-                                <option selected>Escolha o Formato</option>
-                                <option value="CD">CD</option>
-                                <option value="Vinil">Vinil</option>
-                                <option value="Cassette">Cassette</option>
-                                <option value="Digital">Digital</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input name="descricao" type="text" class="form-control" placeholder="Descrição" aria-label="descricao">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input name="url" type="text" class="form-control" placeholder="URL da capa" aria-label="url">
-                        </div>
-
+                    
                         <button type="submit" class="btn btn-primary btn-lg">Adicionar</button>
-
+                    </form>
+                    
                         <h3>
                             <p>
 
                             </p>
                             Incluir Musica ao Disco
                         </h3>
-                        <div class="input-group mb-3">
-                            <select name="Disco" class="form-select" aria-label="Disco">
-                                <option selected>Disco</option>
-                                {% for disco in data %}
-                                    <option value="{{ disco['titulo'] }}">{{ disco['titulo'] }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="input-group mb-3">
-                            <select name="Musica" class="form-select" aria-label="Musica">
-                                <option selected>Musica</option>
-                                {% for musica in musicas %}
-                                    <option value="{{ musica['titulo'] }}">{{ musica['titulo'] }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <select name="Disco" class="form-select" aria-label="Disco">
+                                        <option selected>Disco</option>
+                                        {% for disco in data %}
+                                            <option value="{{ disco['titulo'] }}">{{ disco['titulo'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group">
+                                    <select name="Musica" class="form-select" aria-label="Musica">
+                                        <option selected>Musica</option>
+                                        {% for musica in musicas %}
+                                            <option value="{{ musica['titulo'] }}">{{ musica['titulo'] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>                        
                     </form>
                 </div>
-
                 <h2>Discos Salvos</h2>
                 <div class="container mt-5">
                     <h3>Informações dos Discos</h3>
