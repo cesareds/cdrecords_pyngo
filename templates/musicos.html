@@ -23,7 +23,7 @@
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicos">Músicos</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="bandas">Bandas</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#">Músicas</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicas">Músicas</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="discos">Discos</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
@@ -47,6 +47,12 @@
                                 <a class="nav-link" href="https://github.com/cesareds/cdrecords_pyngo">
                                     <i class="fa fa-github" style="font-size:48px"></i>
                                 </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <form class="d-flex" role="search" action="/search" method="post">
+                                    <input name="sort_musicos" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                                    <button class="btn btn-outline-success" type="search">Search</button>
+                                </form>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
@@ -110,7 +116,7 @@
                 <div class="container mt-5">
                     <h3>Informações dos Músicos</h3>
                     <div class="row">
-                        {% for musico in musicos %}
+                        {% for musico in data %}
                             <div class="col-md-4">
                                 <div class="card mb-3">
                                     <img src="{{musico['url']}}" class="card-img-top" alt="img">
