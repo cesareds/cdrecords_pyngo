@@ -116,7 +116,8 @@ def submit_banda():
 def show_discos():
     try:
         discos = list(collection_disco.find())
-        return render_template('discos.html', data=discos)
+        musicas = list(collection_musica.find())
+        return render_template('discos.html', data=discos, musicas=musicas)
     except Exception as e:
         return f"Erro ao recuperar discos: {e}", 500
 

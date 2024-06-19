@@ -125,6 +125,29 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-lg">Adicionar</button>
+
+                        <h3>
+                            <p>
+
+                            </p>
+                            Incluir Musica ao Disco
+                        </h3>
+                        <div class="input-group mb-3">
+                            <select name="Disco" class="form-select" aria-label="Disco">
+                                <option selected>Disco</option>
+                                {% for disco in data %}
+                                    <option value="{{ disco['titulo'] }}">{{ disco['titulo'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group mb-3">
+                            <select name="Musica" class="form-select" aria-label="Musica">
+                                <option selected>Musica</option>
+                                {% for musica in musicas %}
+                                    <option value="{{ musica['titulo'] }}">{{ musica['titulo'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </form>
                 </div>
 
