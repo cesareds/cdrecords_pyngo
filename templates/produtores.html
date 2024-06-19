@@ -74,7 +74,7 @@
             <div class="container-fluid">
                 <!-- MUDAR DENTRO DESSE DIV-->
         
-                <h1 class="titulo">Músicos</h1>
+                <h1 class="titulo">Produtores</h1>
         
                 <div class="row mb-5 mt-3">
                     <form action="/submit_musico" method="post">
@@ -82,27 +82,10 @@
                             <input name="nome" type="text" class="form-control" placeholder="Nome Completo" aria-label="nome_completo"
                                 aria-describedby="basic-addon1">
                         </div>
-                
                         <div class="input-group mb-3">
-                            <span class="input-group-text">Descrição</span>
-                            <textarea name="descricao" class="form-control" aria-label="With textarea"></textarea>
+                            <span class="input-group-text">Biografia</span>
+                            <textarea name="biografia" class="form-control" aria-label="With textarea"></textarea>
                         </div>
-                
-                        <div class="input-group mb-3">
-                            <input name="genero" type="text" class="form-control" placeholder="Gênero" aria-label="genero">
-                            <input name="cep" type="text" class="form-control" placeholder="CEP" aria-label="cep">
-                        </div>
-                
-                        <div class="input-group mb-3">
-                            <input name="rua" type="text" class="form-control" placeholder="Rua" aria-label="rua">
-                            <input name="cidade" type="text" class="form-control" placeholder="Cidade" aria-label="cidade">
-                        </div>
-                
-                        <div class="input-group mb-3">
-                            <input name="estado" type="text" class="form-control" placeholder="Estado" aria-label="estado">
-                            <input name="telefone" type="text" class="form-control" placeholder="Telefone" aria-label="telefone">
-                        </div>
-                
                         <div class="input-group mb-3">
                             <input name="url" type="text" class="form-control" placeholder="URL da foto" aria-label="url"
                                 aria-describedby="photo">
@@ -149,7 +132,7 @@
                     <h2>Dados Salvos</h2>
                 </div>
                 <div class="container mt-5">
-                    <h3>Informações dos Músicos</h3>
+                    <h3>Informações dos Produtores</h3>
                     <div class="row">
                         {% for musico in data %}
                             <div class="col-md-4">
