@@ -95,7 +95,9 @@ def show_bandas():
             banda = list(collection_banda.find({'_id': ObjectId(b)}))   
             musicod = []
             for m in musicos_da_banda:
-                musicod.append(list(collection_musico.find({'_id': ObjectId(m['_id'])})))
+                musicod.append(list(collection_musico.find({'_id': ObjectId(m['musicoId'])})))
+                # ate aqui beleza
+
             final_data = {
                 "_id": banda[0]['_id'],
                 "url": banda[0]['url'],
@@ -103,11 +105,10 @@ def show_bandas():
                 "banda_desc": banda[0]['descricao'],
                 "banda_gen": banda[0]['genero'],
                 "banda_data": banda[0]['dataDeFormacao'],
-                "musicos": mongo_to_json(musicod)
+                "musicos": mongo_to_json(musicod[0])
             }
             
             final_data_list.append(mongo_to_json(final_data))
-            print(musicod)
         return render_template('bandas.html', data=final_data_list, musicos=musicos)
     except Exception as e:
         return f"Erro ao recuperar bandas: {e}", 500
@@ -157,30 +158,6 @@ def submit_integrar():
     except Exception as e:
         print(f"Erro ao salvar integração: {e}")
         return f"Erro ao salvar integração: {e}", 500
-
-
-
-
-
-    print(request.form)
-    musicoId = request.form['musicoId']
-    bandaId = request.form['bandaId']
-    query = {
-        'musicoId': ObjectId(musicoId),
-        'bandaId': ObjectId(bandaId)
-    }
-    try:
-        print("Salvando...")
-        collection_integrar.insert_one(query)
-        return redirect(url_for('show_bandas'))
-    except InvalidId as e:
-        print(f"Erro de ID inválido: {e}")
-        return f"Erro de ID inválido: {e}", 400
-    except Exception as e:
-        print(f"Erro ao salvar integração: {e}")
-        return f"Erro ao salvar integração: {e}", 500
-
-
 
 
 
