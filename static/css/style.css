@@ -31,7 +31,7 @@ button:hover, a:hover, img:hover {
 
 h1.titulo {
     font-size: 48px; /* Tamanho da fonte */
-    color: red;
+    color: rgb(0, 87, 250);
     font-weight: bold; /* Negrito */
     margin-top: 20px; /* Margem superior de 20px */
 }

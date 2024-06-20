@@ -24,6 +24,7 @@ try:
     collection_incluir = db['Incluir']
     collection_integrar = db['Integrar']
     collection_tocar = db['Tocar']
+    collection_participar = db['Participar']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -48,40 +49,35 @@ def index():
 @app.route('/musicos')
 def show_musicos():
     try:
-        musico_ids = collection_tocar.distinct('musicoId')
+        musico_ids = collection_musico.distinct('_id')
         instrumentos = list(collection_instrumento.find())
         final_data_list = []
         for m in musico_ids:
             instrumentos_do_musico = list(collection_tocar.find({'musicoId': ObjectId(m)}))
+
             musico = list(collection_musico.find({'_id': ObjectId(m)}))
-            instrumentod = []
-            for i in instrumentos_do_musico:
-                instrumentod.append(list(collection_instrumento.find({'_id': ObjectId(i['instrumentoId'])})))
+            musico_lista = []
+            # Iterar sobre cada música do disco
+            for musica in instrumentos_do_musico:
+                musico_lista.append(list(collection_instrumento.find({'_id': ObjectId(musica['instrumentoId'])})))
+
             final_data = {
-                "_id": musico[0]['_id'],
-                "url": musico[0]['url'],
-                "musico_nome": musico[0]['nome'],
-                "musico_desc": musico[0]['descricao'],
-                "musico_gen": musico[0]['genero'],
-                "musico_cep": musico[0]['cep'],
-                "musico_rua": musico[0]['rua'],
-                "musico_estado": musico[0]['estado'],
-                "musico_telefone": musico[0]['telefone'],
-                "musico_cidade": musico[0]['cidade'],
-                "instrumentos": mongo_to_json(instrumentod)
+                "_id":           musico[0]['_id'],
+                "url":           musico[0]['url'],
+                "musico_gen":  musico[0]['genero'],
+                "musico_tel":   musico[0]['telefone'],
+                "musico_cep":    musico[0]['cep'],
+                "musico_estado":   musico[0]['estado'],
+                "musico_rua":  musico[0]['rua'],
+                "musico_cidade":   musico[0]['cidade'],
+                "musico_nome":   musico[0]['nome'],
+                "instrumentos": mongo_to_json(musico_lista)  # Converter músicas para formato JSON serializável
             }
-            final_data_list.append(mongo_to_json(final_data))
-            print(final_data_list)
+            
+            final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
         return render_template('musicos.html', data=final_data_list, instrumentos=instrumentos)
     except Exception as e:
-        return f"Erro ao recuperar músicos: {e}", 500
-
-    # try:
-    #     musicos = list(collection_musico.find())
-    #     instrumentos = list(collection_instrumento.find())
-    #     return render_template('musicos.html', data=musicos, instrumentos=instrumentos)
-    # except Exception as e:
-    #     return f"Erro ao recuperar músicos: {e}", 500
+        return f"Erro ao recuperar instrumentos: {e}", 500
 
 @app.route('/submit_musico', methods=['POST'])
 def submit_musico():
@@ -151,7 +147,7 @@ def show_bandas():
             for m in musicos_da_banda:
                 musicod.append(list(collection_musico.find({'_id': ObjectId(m['musicoId'])})))
                 # ate aqui beleza
-
+            print(musicod)
             final_data = {
                 "_id": banda[0]['_id'],
                 "url": banda[0]['url'],
@@ -159,7 +155,7 @@ def show_bandas():
                 "banda_desc": banda[0]['descricao'],
                 "banda_gen": banda[0]['genero'],
                 "banda_data": banda[0]['dataDeFormacao'],
-                "musicos": mongo_to_json(musicod[0])
+                "musicos": mongo_to_json(musicod)
             }
             
             final_data_list.append(mongo_to_json(final_data))
@@ -217,7 +213,6 @@ def submit_integrar():
 
 @app.route('/discos')
 def show_discos():
-##################
     try:
         # Obter valores únicos de discoId usando distinct
         disco_ids = collection_disco.distinct('_id')
@@ -247,7 +242,6 @@ def show_discos():
                 "url":          disco[0]['url'],
                 "disco_title":  disco[0]['titulo'],
                 "disco_desc":   disco[0]['descricao'],
-                # "disco_art":    disco[0]['artista'],
                 "disco_gen":    disco[0]['genero'],
                 "disco_data":   disco[0]['dataLancamento'],
                 "disco_preco":  disco[0]['preco'],
@@ -259,10 +253,9 @@ def show_discos():
 
             # Adicionar dados finais à lista de dados finais
             final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
-        return render_template('discos.html', data=final_data_list, musicas=musicas)
+        return render_template('discos.html', data=final_data_list)
     except Exception as e:
-        return f"Erro ao recuperar instrumentos: {e}", 500
-############
+        return f"Erro ao recuperar disco: {e}", 500
 
 @app.route('/submit_disco', methods=['POST'])
 def submit_disco():
@@ -330,12 +323,31 @@ def submit_incluir():
 @app.route('/musicas')
 def show_musicas():
     try:
-        musicas = list(collection_musica.find())
+        musica_ids = collection_musica.distinct('_id')
         criadores = list(collection_criador.find())
-        return render_template('musicas.html', musicas=musicas, criadores=criadores)
-    except Exception as e:
-        return f"Erro ao recuperar músicas: {e}", 500
+        final_data_list = []
+        for m in musica_ids:
+            criador_da_musica = list(collection_participar.find({'musicaId': ObjectId(m)}))
+            musica = list(collection_musica.find({'_id': ObjectId(m)}))
+            musica_lista = []
+            # Iterar sobre cada música do disco
+            for c in criador_da_musica:
+                musica_lista.append(list(collection_criador.find({'_id': ObjectId(c['criadorId'])})))
 
+            final_data = {
+                "_id":           musica[0]['_id'],
+                "musica_titulo":  musica[0]['titulo'],
+                "musica_faixa":   musica[0]['faixa'],
+                "musica_autores":    musica[0]['autores'],
+                "musica_duracao":   musica[0]['duracao'],
+                "musica_letra":  musica[0]['letra'],
+                "criadores": mongo_to_json(musica_lista)  # Converter músicas para formato JSON serializável
+            }
+            final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
+        return render_template('musicas.html', data=final_data_list, criadores=criadores)
+    except Exception as e:
+        return f"Erro ao recuperar musicas: {e}", 500
+    
 @app.route('/submit_musica', methods=['POST'])
 def submit_musica():
     print(request.form)

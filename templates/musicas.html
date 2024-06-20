@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Músicas</title>
     <!-- Link para o seu arquivo CSS personalizado -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
@@ -24,8 +27,10 @@
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="bandas">Bandas</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="musicas">Músicas</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="discos">Discos</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="instrumentos">Instrumentos</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="produtores">Produtores</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    href="instrumentos">Instrumentos</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3"
+                    href="produtores">Produtores</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
                 <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
             </div>
@@ -36,13 +41,15 @@
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation"><span
                             class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.linkedin.com/feed/?trk=homepage-basic_sign-in-submit">
+                                <a class="nav-link"
+                                    href="https://www.linkedin.com/feed/?trk=homepage-basic_sign-in-submit">
                                     <i class="fa fa-linkedin-square" style="font-size:48px"></i>
                                 </a>
                             </li>
@@ -79,75 +86,84 @@
                 <div class="row mb-5 mt-3">
                     <form action="/submit_musica" method="post">
                         <div class="input-group mb-3">
-                            <input name="titulo" type="text" class="form-control" placeholder="Título da Música" aria-label="titulo">
+                            <input name="titulo" type="text" class="form-control" placeholder="Título da Música"
+                                aria-label="titulo">
                         </div>
 
                         <div class="input-group mb-3">
-                            <input name="faixa" type="number" class="form-control" placeholder="Número da Faixa" aria-label="faixa">
+                            <input name="faixa" type="number" class="form-control" placeholder="Número da Faixa"
+                                aria-label="faixa">
                         </div>
 
                         <div class="input-group mb-3">
-                            <input name="autores" type="text" class="form-control" placeholder="Autores" aria-label="autores">
+                            <input name="autores" type="text" class="form-control" placeholder="Autores"
+                                aria-label="autores">
                         </div>
 
                         <div class="input-group mb-3">
-                            <input name="duracao" type="text" class="form-control" placeholder="Duração (min:seg)" aria-label="duracao">
+                            <input name="duracao" type="text" class="form-control" placeholder="Duração (min:seg)"
+                                aria-label="duracao">
                         </div>
 
                         <div class="input-group mb-3">
-                            <textarea name="letra" class="form-control" placeholder="Letra da Música" aria-label="letra"></textarea>
+                            <textarea name="letra" class="form-control" placeholder="Letra da Música"
+                                aria-label="letra"></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-lg">Adicionar</button>
                     </form>
                 </div>
-            </form>
-                    
-            <h3>
-                <p>
+                </form>
 
-                </p>
-                Participar criador à música
-            </h3>
-            <div class="row mb-3">
-                <div class="col">
-                    <div class="input-group">
-                        <select name="Musica" class="form-select" aria-label="Musica">
-                            <option selected>Musica</option>
-                            {% for musica in musicas %}
-                                <option value="{{ musica['titulo'] }}">{{ musica['titulo'] }}</option>
-                            {% endfor %}
-                        </select>
+                <h3>
+                    <p>
+
+                    </p>
+                    Participar criador à música
+                </h3>
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <select name="Musica" class="form-select" aria-label="Musica">
+                                <option selected>Musica</option>
+                                {% for musica in data %}
+                                <option value="{{ musica['titulo'] }}">{{ musica['musica_titulo'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="input-group">
-                        <select name="Criador" class="form-select" aria-label="Criador">
-                            <option selected>Criador</option>
-                            {% for criador in criadores %}
+                    <div class="col">
+                        <div class="input-group">
+                            <select name="Criador" class="form-select" aria-label="Criador">
+                                <option selected>Criador</option>
+                                {% for criador in criadores %}
                                 <option value="{{ criador['nome'] }}">{{ criador['nome'] }}</option>
-                            {% endfor %}
-                        </select>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>                        
-        </form>
+                </form>
                 <h2>Músicas Salvas</h2>
                 <div class="container mt-5">
                     <h3>Informações das Músicas</h3>
                     <div class="row">
-                        {% for musica in musicas %}
-                            <div class="col-md-4">
-                                <div class="card mb-3">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{musica['titulo']}}</h5>
-                                        <p class="card-text"><strong>Faixa:</strong> {{musica['faixa']}}</p>
-                                        <p class="card-text"><strong>Autores:</strong> {{musica['autores']}}</p>
-                                        <p class="card-text"><strong>Duração:</strong> {{musica['duracao']}}</p>
-                                        <p class="card-text"><strong>Letra:</strong> {{musica['letra']}}</p>
-                                    </div>
+                        {% for musica in data %}
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{musica['musica_titulo']}}</h5>
+                                    <p class="card-text"><strong>Faixa:</strong> {{musica['musica_faixa']}}</p>
+                                    <p class="card-text"><strong>Autores:</strong> {{musica['musica_autores']}}</p>
+                                    <p class="card-text"><strong>Duração:</strong> {{musica['musica_duracao']}}</p>
+                                    <p class="card-text"><strong>Letra:</strong> {{musica['musica_letra']}}</p>
+                                        {% for criador in musica['criadores'] %}
+                                        {% print(musica) %}
+                                        <li class="list-group-item"><strong>Criador:</strong> {{ criador['nome'] }}</li>
+                                        {% endfor %}
                                 </div>
                             </div>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
@@ -157,8 +173,12 @@
     </div>
     <!-- /#wrapper -->
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
     <script>
         var el = document.getElementById("menu-toggle");
         if (el) {
@@ -169,4 +189,5 @@
         }
     </script>
 </body>
+
 </html>
