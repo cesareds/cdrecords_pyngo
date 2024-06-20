@@ -23,6 +23,7 @@ try:
     collection_produtor = db['Produtor']
     collection_incluir = db['Incluir']
     collection_integrar = db['Integrar']
+    collection_tocar = db['Tocar']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -47,11 +48,40 @@ def index():
 @app.route('/musicos')
 def show_musicos():
     try:
-        musicos = list(collection_musico.find())
+        musico_ids = collection_tocar.distinct('musicoId')
         instrumentos = list(collection_instrumento.find())
-        return render_template('musicos.html', data=musicos, instrumentos=instrumentos)
+        final_data_list = []
+        for m in musico_ids:
+            instrumentos_do_musico = list(collection_tocar.find({'musicoId': ObjectId(m)}))
+            musico = list(collection_musico.find({'_id': ObjectId(m)}))
+            instrumentod = []
+            for i in instrumentos_do_musico:
+                instrumentod.append(list(collection_instrumento.find({'_id': ObjectId(i['instrumentoId'])})))
+            final_data = {
+                "_id": musico[0]['_id'],
+                "url": musico[0]['url'],
+                "musico_nome": musico[0]['nome'],
+                "musico_desc": musico[0]['descricao'],
+                "musico_gen": musico[0]['genero'],
+                "musico_cep": musico[0]['cep'],
+                "musico_rua": musico[0]['rua'],
+                "musico_estado": musico[0]['estado'],
+                "musico_telefone": musico[0]['telefone'],
+                "musico_cidade": musico[0]['cidade'],
+                "instrumentos": mongo_to_json(instrumentod)
+            }
+            final_data_list.append(mongo_to_json(final_data))
+            print(final_data_list)
+        return render_template('musicos.html', data=final_data_list, instrumentos=instrumentos)
     except Exception as e:
         return f"Erro ao recuperar músicos: {e}", 500
+
+    # try:
+    #     musicos = list(collection_musico.find())
+    #     instrumentos = list(collection_instrumento.find())
+    #     return render_template('musicos.html', data=musicos, instrumentos=instrumentos)
+    # except Exception as e:
+    #     return f"Erro ao recuperar músicos: {e}", 500
 
 @app.route('/submit_musico', methods=['POST'])
 def submit_musico():
@@ -83,6 +113,30 @@ def submit_musico():
     except Exception as e:
         print(f"Erro ao salvar músico: {e}")
         return f"Erro ao salvar músico: {e}", 500
+    
+
+@app.route('/tocar', methods=['POST'])
+def tocar():
+    musicoId = request.form.get('musicoId')
+    instrumentoId = request.form.get('instrumentoId')
+    print(f"Received musicoId: {musicoId}, instrumentoId: {instrumentoId}")
+    if not musicoId or not instrumentoId:
+        return "MusicoId ou InstrumentoId não fornecido", 400
+    try:
+        query = {
+            'musicoId': ObjectId(musicoId),
+            'instrumentoId': ObjectId(instrumentoId)
+        }
+        print("Salvando...")
+        collection_tocar.insert_one(query)
+        return redirect(url_for('show_musicos'))
+    except InvalidId as e:
+        print(f"Erro de ID inválido: {e}")
+        return f"Erro de ID inválido: {e}", 400
+    except Exception as e:
+        print(f"Erro ao salvar tocar: {e}")
+        return f"Erro ao salvar tocar: {e}", 500
+
 
 @app.route('/bandas')
 def show_bandas():

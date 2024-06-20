@@ -114,7 +114,7 @@
                     </form>
                 </div>
             </form>
-                    
+            <form action="/tocar" method="post">      
             <h3>
                 <p>
 
@@ -124,10 +124,10 @@
             <div class="row mb-3">
                 <div class="col">
                     <div class="input-group">
-                        <select name="Musico" class="form-select" aria-label="Musico">
+                        <select name="musicoId" class="form-select" aria-label="Musico">
                             <option selected>Musico</option>
                             {% for musico in data %}
-                                <option value="{{ musico['nome'] }}">{{ musico['nome'] }}</option>
+                                <option value="{{ musico['nome'] }}">{{ musico['musico_nome'] }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -143,6 +143,7 @@
                     </div>
                 </div>
             </div>                        
+            <button type="submit" class="btn btn-primary btn-lg">Tocar</button>
         </form>
 
                 <div class="d-flex justify-content-center">
@@ -156,21 +157,21 @@
                                 <div class="card mb-3">
                                     <img src="{{musico['url']}}" class="card-img-top" alt="img">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{musico['nome']}}</h5>
-                                        <p class="card-text">{{musico['descricao']}}</p>
+                                        <h5 class="card-title">{{musico['musico_nome']}}</h5>
+                                        <p class="card-text">{{musico['musico_desc']}}</p>
                                     </div>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <span><strong>Genero:</strong> {{ musico['genero'] }}</span>
-                                            <span><strong>Telefone:</strong> {{ musico['telefone'] }}</span>
+                                            <span><strong>Genero:</strong> {{ musico['musico_gen'] }}</span>
+                                            <span><strong>Telefone:</strong> {{ musico['musico_telefone'] }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <span><strong>CEP:</strong> {{ musico['cep'] }}</span>
-                                            <span><strong>Estado:</strong> {{ musico['estado'] }}</span>
+                                            <span><strong>CEP:</strong> {{ musico['musico_cep'] }}</span>
+                                            <span><strong>Estado:</strong> {{ musico['musico_estado'] }}</span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
-                                            <span><strong>Rua:</strong> {{ musico['rua'] }}</span>
-                                            <span><strong>Cidade:</strong> {{ musico['cidade'] }}</span>
+                                            <span><strong>Rua:</strong> {{ musico['musico_rua'] }}</span>
+                                            <span><strong>Cidade:</strong> {{ musico['musico_cidade'] }}</span>
                                         </li>
                                     </ul>
         
