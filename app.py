@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 from pymongo import MongoClient
 from bson import ObjectId
+from bson.errors import InvalidId
 import configparser
 import ssl
 
@@ -21,6 +22,7 @@ try:
     collection_criador = db['Criador']
     collection_produtor = db['Produtor']
     collection_incluir = db['Incluir']
+    collection_integrar = db['Integrar']
     print("connected with MongoDB Atlas")
 except Exception as e:
     print(f"Erro ao conectar com MongoDB Atlas: {e}")
@@ -85,9 +87,27 @@ def submit_musico():
 @app.route('/bandas')
 def show_bandas():
     try:
-        bandas = list(collection_banda.find())
+        banda_ids = collection_banda.distinct('_id')
         musicos = list(collection_musico.find())
-        return render_template('bandas.html', data=bandas, musicos=musicos)
+        final_data_list = []
+        for b in banda_ids:
+            musicos_da_banda = list(collection_banda.find({'bandaId': ObjectId(b)}))
+            banda = list(collection_banda.find({'_id': ObjectId(b)}))   
+            musicod = []
+            for musico in musicos_da_banda:
+                musicod.append(list(collection_musico.find({'_id': ObjectId(musico['_id'])})))
+            final_data = {
+                "_id": banda[0]['_id'],
+                "url": banda[0]['url'],
+                "banda_nome": banda[0]['nome'],
+                "banda_desc": banda[0]['descricao'],
+                "banda_gen": banda[0]['genero'],
+                "banda_data": banda[0]['dataDeFormacao'],
+                "musicos": mongo_to_json(musicod)
+            }
+            
+            final_data_list.append(mongo_to_json(final_data))
+        return render_template('bandas.html', data=final_data_list, musicos=musicos)
     except Exception as e:
         return f"Erro ao recuperar bandas: {e}", 500
 
@@ -114,6 +134,53 @@ def submit_banda():
     except Exception as e:
         print(f"Erro ao salvar banda: {e}")
         return f"Erro ao salvar banda: {e}", 500
+
+@app.route('/integrar', methods=['POST'])
+def submit_integrar():
+    musicoId = request.form.get('musicoId')
+    bandaId = request.form.get('bandaId')
+    print(f"Received musicoId: {musicoId}, bandaId: {bandaId}")
+    if not musicoId or not bandaId:
+        return "MusicoId ou BandaId não fornecido", 400
+    try:
+        query = {
+            'musicoId': ObjectId(musicoId),
+            'bandaId': ObjectId(bandaId)
+        }
+        print("Salvando...")
+        collection_integrar.insert_one(query)
+        return redirect(url_for('show_bandas'))
+    except InvalidId as e:
+        print(f"Erro de ID inválido: {e}")
+        return f"Erro de ID inválido: {e}", 400
+    except Exception as e:
+        print(f"Erro ao salvar integração: {e}")
+        return f"Erro ao salvar integração: {e}", 500
+
+
+
+
+
+    print(request.form)
+    musicoId = request.form['musicoId']
+    bandaId = request.form['bandaId']
+    query = {
+        'musicoId': ObjectId(musicoId),
+        'bandaId': ObjectId(bandaId)
+    }
+    try:
+        print("Salvando...")
+        collection_integrar.insert_one(query)
+        return redirect(url_for('show_bandas'))
+    except InvalidId as e:
+        print(f"Erro de ID inválido: {e}")
+        return f"Erro de ID inválido: {e}", 400
+    except Exception as e:
+        print(f"Erro ao salvar integração: {e}")
+        return f"Erro ao salvar integração: {e}", 500
+
+
+
 
 
 @app.route('/discos')
@@ -160,18 +227,10 @@ def show_discos():
 
             # Adicionar dados finais à lista de dados finais
             final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
-            print(musicas)
         return render_template('discos.html', data=final_data_list, musicas=musicas)
     except Exception as e:
         return f"Erro ao recuperar instrumentos: {e}", 500
 ############
-
-    try:
-        discos = list(collection_disco.find())
-        musicas = list(collection_musica.find())
-        return render_template('discos.html', data=discos, musicas=musicas)
-    except Exception as e:
-        return f"Erro ao recuperar discos: {e}", 500
 
 @app.route('/submit_disco', methods=['POST'])
 def submit_disco():
@@ -208,10 +267,9 @@ def submit_disco():
 
 
 
-from bson.objectid import ObjectId, InvalidId
 
 @app.route('/incluir', methods=['POST'])
-def submit_integrar():
+def submit_incluir():
     discoId = request.form.get('discoId')
     musicaId = request.form.get('musicaId')
     
@@ -236,11 +294,6 @@ def submit_integrar():
     except Exception as e:
         print(f"Erro ao salvar inclusão: {e}")
         return f"Erro ao salvar inclusão: {e}", 500
-
-
-
-
-
 
 @app.route('/musicas')
 def show_musicas():

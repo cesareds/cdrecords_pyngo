@@ -103,7 +103,7 @@
 
                 </div>
             </form>
-                    
+        <form action="/integrar" method="post">        
             <h3>
                 <p>
 
@@ -113,25 +113,26 @@
             <div class="row mb-3">
                 <div class="col">
                     <div class="input-group">
-                        <select name="Disco" class="form-select" aria-label="Disco">
+                        <select name="bandaId" class="form-select" aria-label="Banda">
                             <option selected>Banda</option>
                             {% for banda in data %}
-                                <option value="{{ banda['nome'] }}">{{ banda['nome'] }}</option>
+                                <option value="{{ banda['_id'] }}">{{ banda['banda_nome'] }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group">
-                        <select name="Musica" class="form-select" aria-label="Musica">
+                        <select name="musicoId" class="form-select" aria-label="Musico">
                             <option selected>Musico</option>
                             {% for musico in musicos %}
-                                <option value="{{ musico['nome'] }}">{{ musico['nome'] }}</option>
+                                <option value="{{ musico['_id'] }}">{{ musico['nome'] }}</option>
                             {% endfor %}
                         </select>
                     </div>
                 </div>
-            </div>                        
+            </div>    
+            <button type="submit" class="btn btn-primary btn-lg">Integrar</button>                    
         </form>
                 <h2>Dados Salvos</h2>
                 <div class="container mt-5">
@@ -142,12 +143,35 @@
                                 <div class="card mb-3">
                                     <img src="{{ banda['url'] }}" class="card-img-top" alt="img">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ banda['nome'] }}</h5>
-                                        <p class="card-text">{{ banda['descricao'] }}</p>
+                                        <h5 class="card-title">{{ banda['banda_nome'] }}</h5>
+                                        <p class="card-text">{{ banda['banda_desc'] }}</p>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Gênero:</strong> {{ banda['genero'] }}</li>
-                                        <li class="list-group-item"><strong>Data de Formação:</strong> {{ banda['dataDeFormacao'] }}</li>
+                                        <li class="list-group-item"><strong>Gênero:</strong> {{ banda['banda_gen'] }}</li>
+                                        <li class="list-group-item"><strong>Data de Formação:</strong> {{ banda['banda_data'] }}</li>
+                                        <li class="list-group-item">
+                                            <div class="accordion" id="accordionExample">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        Musicos
+                                                    </button>
+                                                    </h2>
+                                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                    <div class="accordion-body">
+                                                        <ul>
+                                                                {% for musico in banda['musicos'] %}
+                                                                    print(banda)
+                                                                    print(musico[0])
+                                                                    print(musico[0]['nome'])
+                                                                    <li><strong>{{musico[0]['nome']}}</strong> - {{musico[0]['descricao']}}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
