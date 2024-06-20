@@ -253,7 +253,7 @@ def show_discos():
 
             # Adicionar dados finais à lista de dados finais
             final_data_list.append(mongo_to_json(final_data))  # Converter dados finais para formato JSON serializável
-        return render_template('discos.html', data=final_data_list)
+        return render_template('discos.html', data=final_data_list, musicas=musicas)
     except Exception as e:
         return f"Erro ao recuperar disco: {e}", 500
 
