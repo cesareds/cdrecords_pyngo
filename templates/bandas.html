@@ -134,48 +134,45 @@
             </div>    
             <button type="submit" class="btn btn-primary btn-lg">Integrar</button>                    
         </form>
-                <h2>Dados Salvos</h2>
-                <div class="container mt-5">
-                    <h3>Informações das Bandas</h3>
-                    <div class="row">
-                        {% for banda in data %}
-                            <div class="col-md-4">
-                                <div class="card mb-3">
-                                    <img src="{{ banda['url'] }}" class="card-img-top" alt="img">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ banda['banda_nome'] }}</h5>
-                                        <p class="card-text">{{ banda['banda_desc'] }}</p>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Gênero:</strong> {{ banda['banda_gen'] }}</li>
-                                        <li class="list-group-item"><strong>Data de Formação:</strong> {{ banda['banda_data'] }}</li>
-                                        <li class="list-group-item">
-                                            <div class="accordion" id="accordionExample">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header">
-                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        Musicos
-                                                    </button>
-                                                    </h2>
-                                                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">
-                                                        <ul>
-                                                                {% for musico in banda['musicos'] %}
-                                                                    print(banda)
-                                                                    print(musico[0])
-                                                                    print(musico[0]['nome'])
-                                                                    <li><strong>{{musico[0]['nome']}}</strong> - {{musico[0]['descricao']}}</li>
-                                                                {% endfor %}
-                                                            </ul>
-                                                    </div>
-                                                    </div>
+        <h2>Dados Salvos</h2>
+        <div class="container mt-5">
+            <h3>Informações das Bandas</h3>
+            <div class="row">
+                {% for banda in data %}
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <img src="{{ banda['url'] }}" class="card-img-top" alt="img">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ banda['banda_nome'] }}</h5>
+                                <p class="card-text">{{ banda['banda_desc'] }}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Gênero:</strong> {{ banda['banda_gen'] }}</li>
+                                <li class="list-group-item"><strong>Data de Formação:</strong> {{ banda['banda_data'] }}</li>
+                                <li class="list-group-item">
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ banda['_id'] }}" aria-expanded="true" aria-controls="collapseOne{{ banda['_id'] }}">
+                                                    Musicos
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne{{ banda['_id'] }}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        {% for musico in banda['musicos'] %}
+                                                            <li><strong>{{ musico['nome'] }}</strong> - {{ musico['descricao'] }}</li>
+                                                        {% endfor %}
+                                                    </ul>
                                                 </div>
                                             </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
                     </div>
                 </div>
             </div>

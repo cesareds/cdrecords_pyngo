@@ -91,11 +91,11 @@ def show_bandas():
         musicos = list(collection_musico.find())
         final_data_list = []
         for b in banda_ids:
-            musicos_da_banda = list(collection_banda.find({'bandaId': ObjectId(b)}))
+            musicos_da_banda = list(collection_integrar.find({'bandaId': ObjectId(b)}))
             banda = list(collection_banda.find({'_id': ObjectId(b)}))   
             musicod = []
-            for musico in musicos_da_banda:
-                musicod.append(list(collection_musico.find({'_id': ObjectId(musico['_id'])})))
+            for m in musicos_da_banda:
+                musicod.append(list(collection_musico.find({'_id': ObjectId(m['_id'])})))
             final_data = {
                 "_id": banda[0]['_id'],
                 "url": banda[0]['url'],
@@ -107,6 +107,7 @@ def show_bandas():
             }
             
             final_data_list.append(mongo_to_json(final_data))
+            print(musicod)
         return render_template('bandas.html', data=final_data_list, musicos=musicos)
     except Exception as e:
         return f"Erro ao recuperar bandas: {e}", 500
