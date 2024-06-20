@@ -197,29 +197,30 @@
                                         <li class="list-group-item"><strong>Platinas:</strong> {{ disco['disco_plat'] }}</li>
                                         <li class="list-group-item"><strong>Formato:</strong> {{ disco['disco_form'] }}</li>
                                         <li class="list-group-item">
-                                        <div class="accordion" id="accordionExample">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    Musicas
-                                                </button>
-                                                </h2>
-                                                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                                <div class="accordion-body">
-                                                    <ul>
-                                                            {% for song in disco['songs'] %}
-                                                                <li><strong>{{song[0]['faixa']}}</strong> - {{song[0]['titulo']}}</li>
-                                                            {% endfor %}
-                                                        </ul>
+                                            <div class="accordion" id="accordionExample{{ disco['_id'] }}">
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ disco['_id'] }}" aria-expanded="true" aria-controls="collapseOne{{ disco['_id'] }}">
+                                                            Musicas
+                                                        </button>
+                                                    </h2>
+                                                    <div id="collapseOne{{ disco['_id'] }}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample{{ disco['_id'] }}">
+                                                        <div class="accordion-body">
+                                                            <ul>
+                                                                {% for song in disco['songs'] %}
+                                                                    <li><strong>{{song[0]['faixa']}}</strong> - {{song[0]['titulo']}}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                </div>
-                                            </div>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         {% endfor %}
+
                     </div>
                 </div>
             </div>
