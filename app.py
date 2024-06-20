@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from pymongo import MongoClient
-from bson import ObjectId 
+from bson import ObjectId
 import configparser
 import ssl
 
@@ -144,6 +144,7 @@ def show_discos():
 
                 # Montar dados finais para o disco atual
             final_data = {
+                "_id":         disco[0]['_id'],
                 "url":          disco[0]['url'],
                 "disco_title":  disco[0]['titulo'],
                 "disco_desc":   disco[0]['descricao'],
@@ -202,6 +203,44 @@ def submit_disco():
     except Exception as e:
         print(f"Erro ao salvar disco: {e}")
         return f"Erro ao salvar disco: {e}", 500
+    
+
+
+
+
+from bson.objectid import ObjectId, InvalidId
+
+@app.route('/incluir', methods=['POST'])
+def submit_integrar():
+    discoId = request.form.get('discoId')
+    musicaId = request.form.get('musicaId')
+    
+    # Debugging: Print the received IDs
+    print(f"Received discoId: {discoId}, musicaId: {musicaId}")
+    
+    # Verificar se os IDs estão presentes
+    if not discoId or not musicaId:
+        return "DiscoId ou MusicaId não fornecido", 400
+    
+    try:
+        query = {
+            'discoId': ObjectId(discoId),
+            'musicaId': ObjectId(musicaId)
+        }
+        print("Salvando...")
+        collection_incluir.insert_one(query)
+        return redirect(url_for('show_discos'))
+    except InvalidId as e:
+        print(f"Erro de ID inválido: {e}")
+        return f"Erro de ID inválido: {e}", 400
+    except Exception as e:
+        print(f"Erro ao salvar inclusão: {e}")
+        return f"Erro ao salvar inclusão: {e}", 500
+
+
+
+
+
 
 @app.route('/musicas')
 def show_musicas():
